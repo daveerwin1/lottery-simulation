@@ -30,8 +30,10 @@
 <h2>Simulate</h2>
 <p>Choose number of tickets per drawing, cost is $10 per ticket, drawings are once a year.</p>
 <form [formGroup]="simulationForm" (ngSubmit)="onSubmit()">
-  <label for="number-tickets">Number of Tickets</label>
-  <input type="number" class="form-control" id="number-tickets" formControlName="numberTickets">
+  <div class="form-group">
+    <label for="number-tickets">Number of Tickets</label>
+    <input type="number" class="form-control" id="number-tickets" formControlName="numberTickets">
+  </div>
   <button class="btn btn-primary" type="submit" [disabled]="!simulationForm.valid">Submit</button>
 </form>
 

@@ -4,10 +4,8 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 @Component({
   selector: 'app-raffle',
   templateUrl: './raffle.component.html',
-  styleUrls: ['./raffle.component.scss']
 })
 export class RaffleComponent implements OnInit {
-  numberTickets = new FormControl();
 
   constructor(private fb: FormBuilder) { }
 
@@ -20,6 +18,6 @@ export class RaffleComponent implements OnInit {
   }
 
   onSubmit() {
-    
+    console.log(this.simulationForm.value);
   }
 }
