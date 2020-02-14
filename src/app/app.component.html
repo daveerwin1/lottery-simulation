@@ -1,6 +1,14 @@
 <div class="container-fluid">
-  <h1>hello world!</h1>
-  <h1>Example heading <span class="badge badge-secondary">New</span></h1>
+  <ul class="nav bg-light mb-4">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="home" routerLinkActive="active">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="raffle" routerLinkActive="active">Raffle</a>
+    </li>
+  </ul>
+
+  <router-outlet></router-outlet>
 </div>
 
-<router-outlet></router-outlet>
+

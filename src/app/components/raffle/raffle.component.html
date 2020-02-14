@@ -1,0 +1,37 @@
+<h1>Raffle</h1>
+<p>Welcome to the Oregon Lottery Raffle simulation.</p>
+<h2>Odds</h2>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>PRIZE</th>
+      <th>NUMBER OF PRIZES</th>
+      <th>ODDS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$1 MILLION</td>
+      <td>1</td>
+      <td>1:250,000</td>
+    </tr>
+    <tr>
+      <td>$500</td>
+      <td>300</td>
+      <td>1:833</td>
+    </tr>
+    <tr>
+      <td>$100</td>
+      <td>1,500</td>
+      <td>1:167</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Simulate</h2>
+<p>Choose number of tickets per drawing, cost is $10 per ticket, drawings are once a year.</p>
+<form [formGroup]="simulationForm" (ngSubmit)="onSubmit()">
+  <label for="number-tickets">Number of Tickets</label>
+  <input type="number" class="form-control" id="number-tickets" formControlName="numberTickets">
+  <button class="btn btn-primary" type="submit" [disabled]="!simulationForm.valid">Submit</button>
+</form>
+
