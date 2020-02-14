@@ -25,18 +25,20 @@ export class RaffleService {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  private getRandomIntList(max, count) {
+  getRandomIntList(max, total) {
 
     this.numberList = [];
 
-    for (let x = 0; x < count;) {
+    for (let index = 0; index < total;) {
       let number = this.getRandomInt(max);
 
       if (!this.numberList.includes(number)) {
         this.numberList.push(number);
-        count++;
+        index++;
       }
     }
+
+    this.numberList.sort(function(a, b){return a-b});
 
     return this.numberList;
   }
