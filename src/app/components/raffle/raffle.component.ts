@@ -29,6 +29,7 @@ export class RaffleComponent implements OnInit {
 
   onSubmit() {
     this.runningSimulation = true;
+    this.drawings = [];
 
     setTimeout(() => {
       this.drawNumbers();
