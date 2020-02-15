@@ -65,10 +65,14 @@ export class RaffleComponent implements OnInit {
     if(!this.hasWon()) {
       setTimeout(() => {
         this.drawNumbers();
-      }, 10)
+      }, 10);
+      window.scrollTo(0,document.body.scrollHeight);
     } else {
       this.totalAmountWon += this.GRAND_PRIZE;
       this.runningSimulation = false;
+      setTimeout(() => {
+        window.scrollTo(0,document.body.scrollHeight);
+      }, 10);
     }
   }
 
@@ -90,6 +94,10 @@ export class RaffleComponent implements OnInit {
     return [] = currentNumbers.thirdPlaceNumbers.filter(number => {
       return currentNumbers.myNumbers.includes(number);
     }).sort(function(a, b){return a-b});
+  }
+
+  scrollToTop() {
+    window.scrollTo(0,0);
   }
 }
 

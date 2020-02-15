@@ -64,4 +64,6 @@
 <div *ngIf="hasWon()">You spent: ${{(drawings.length * simulationForm.value.numberTickets * 10).toLocaleString()}}</div>
 <div *ngIf="hasWon()">Net Amount: ${{(totalAmountWon - (drawings.length * simulationForm.value.numberTickets * 10)).toLocaleString()}}</div>
 
+<button type="button" class="btn btn-primary mt-5" (click)="scrollToTop()" *ngIf="hasWon()">Scroll to top</button>
+
 <span class="spinner-grow mr-2" role="status" aria-hidden="true" *ngIf="runningSimulation"></span>
