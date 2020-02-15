@@ -44,7 +44,7 @@
 </div>
 
 <div class="d-flex flex-wrap mb-3">
-  <div *ngFor="let drawing of drawings; index as index;" class="border p-2 rounded m-1">
+  <div *ngFor="let drawing of drawings; index as index;" class="border p-2 rounded m-1" [ngClass]="{'border-success': drawing.secondPlaceWinningNumbers.length || drawing.thirdPlaceWinningNumbers.length}">
     <h3 class="h5">Drawing Number {{index + 1}}</h3>
     <!--<h3>My Numbers</h3>-->
     <!--<p>{{drawing.myNumbers}}</p>-->
