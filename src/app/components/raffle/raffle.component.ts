@@ -9,11 +9,9 @@ import {RaffleService} from "../../services/raffle.service";
 
 export class RaffleComponent implements OnInit {
 
-  winningNumbers: number[];
-  winner: boolean = false;
+  // winner: boolean = false;
   drawings: Drawing[] = [];
   runningSimulation: boolean = false;
-
   currentNumbers: Drawing;
 
   constructor(
@@ -30,26 +28,38 @@ export class RaffleComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.runningSimulation = true;
 
-    while (!this.winner) {
+    setTimeout(() => {
+      this.drawNumbers();
+    }, 100);
+  }
 
-      this.currentNumbers = {
-        myNumbers: this.raffleService.getRandomIntList(250001, this.simulationForm.value.numberTickets),
-        winningNumber: this.raffleService.winningNumber,
-        secondPlaceNumbers: this.raffleService.secondPrizeNumbers,
-        thirdPlaceNumbers: this.raffleService.thirdPrizeNumbers,
-      };
+  drawNumbers() {
+    this.currentNumbers = {
+      myNumbers: this.raffleService.getRandomIntList(250001, this.simulationForm.value.numberTickets),
+      winningNumber: this.raffleService.winningNumber,
+      secondPlaceNumbers: this.raffleService.secondPrizeNumbers,
+      thirdPlaceNumbers: this.raffleService.thirdPrizeNumbers,
+    };
 
-      this.drawings.push(this.currentNumbers);
+    this.drawings.push(this.currentNumbers);
 
-      if (this.currentNumbers.myNumbers.includes(this.currentNumbers.winningNumber)) {
-        this.winner = true;
-      }
+    if(!this.hasWon()) {
+      setTimeout(() => {
+        this.drawNumbers();
+      }, 100)
+    } else {
+      this.runningSimulation = false;
     }
+  }
 
-    //this.runningSimulation = false;
+  hasWon() {
+    if (this.currentNumbers) {
+      return this.currentNumbers.myNumbers.includes(this.currentNumbers.winningNumber)
+    } else {
+      return false;
+    }
   }
 }
 

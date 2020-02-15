@@ -29,28 +29,35 @@
 </table>
 <h2>Simulate</h2>
 <p>Choose number of tickets per drawing, cost is $10 per ticket, drawings are once a year. Simulation will run until you win the grand prize of 1 million dollars.</p>
-<form [formGroup]="simulationForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="number-tickets">Number of Tickets per drawing<span *ngIf="simulationForm.value.numberTickets">: {{simulationForm.value.numberTickets}},</span>
-      <span *ngIf="simulationForm.value.numberTickets"> Total cost per drawing: ${{simulationForm.value.numberTickets * 10}}</span>
-    </label>
-    <input type="number" class="form-control" id="number-tickets" formControlName="numberTickets">
-  </div>
-  <button class="btn btn-primary" type="submit" [disabled]="!simulationForm.valid || runningSimulation">
-    <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" *ngIf="runningSimulation"></span>
-    Submit
-  </button>
-</form>
-
-<div *ngFor="let drawing of drawings; let index = index;">
-  <h3>Drawing Number {{index + 1}}</h3>
-  <!--<h3>My Numbers</h3>-->
-  <!--<p>{{drawing.myNumbers}}</p>-->
-  <h3>Winning Number</h3>
-  <p>{{drawing.winningNumber}}</p>
-  <!--<h3>Second Place Numbers</h3>-->
-  <!--<p>{{drawing.secondPlaceNumbers}}</p>-->
-  <!--<h3>Third Place Numbers</h3>-->
-  <!--<p>{{drawing.thirdPlaceNumbers}}</p>-->
+<div class="mb-3">
+  <form [formGroup]="simulationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div>Number of Tickets per drawing: {{simulationForm.value.numberTickets.toLocaleString()}}</div>
+      <div class="mb-3">Total cost per drawing: ${{(simulationForm.value.numberTickets * 10).toLocaleString()}}</div>
+      <label for="number-tickets">Number of Tickets per drawing</label>
+      <input type="number" class="form-control" id="number-tickets" formControlName="numberTickets">
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!simulationForm.valid || runningSimulation">
+      <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" *ngIf="runningSimulation"></span>
+      Submit
+    </button>
+  </form>
 </div>
+
+<div class="d-flex flex-wrap">
+  <div *ngFor="let drawing of drawings; index as index;" class="border p-2 rounded m-1">
+    <h3 class="h5">Drawing Number {{index + 1}}</h3>
+    <!--<h3>My Numbers</h3>-->
+    <!--<p>{{drawing.myNumbers}}</p>-->
+
+    <p>Winning Number: {{drawing.winningNumber}}</p>
+    <!--<h3>Second Place Numbers</h3>-->
+    <!--<p>{{drawing.secondPlaceNumbers}}</p>-->
+    <!--<h3>Third Place Numbers</h3>-->
+    <!--<p>{{drawing.thirdPlaceNumbers}}</p>-->
+  </div>
+</div>
+
+<h2 *ngIf="hasWon()">You won a million dollars!</h2>
+<p *ngIf="hasWon()">You spent: ${{(drawings.length * simulationForm.value.numberTickets * 10).toLocaleString()}}</p>
 
