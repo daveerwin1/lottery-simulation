@@ -13,6 +13,10 @@ export class RaffleComponent implements OnInit {
   drawings: Drawing[] = [];
   runningSimulation: boolean = false;
   currentNumbers: Drawing;
+  totalAmountWon: number = 0;
+  readonly GRAND_PRIZE = 1000000;
+  readonly SECOND_PLACE_PRIZE = 500;
+  readonly THIRD_PLACE_PRIZE = 100;
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +33,16 @@ export class RaffleComponent implements OnInit {
 
   onSubmit() {
     this.runningSimulation = true;
-    this.drawings = [];
+    this.clearData();
 
     setTimeout(() => {
       this.drawNumbers();
-    }, 100);
+    }, 10);
+  }
+
+  clearData() {
+    this.drawings = [];
+    this.totalAmountWon = 0;
   }
 
   drawNumbers() {
@@ -44,13 +53,21 @@ export class RaffleComponent implements OnInit {
       thirdPlaceNumbers: this.raffleService.thirdPrizeNumbers,
     };
 
+    this.currentNumbers.secondPlaceWinningNumbers = this.secondPlaceWinningNumbers(this.currentNumbers);
+    this.currentNumbers.thirdPlaceWinningNumbers = this.thirdPlaceWinningNumbers(this.currentNumbers);
+    // console.log("current numbers", this.currentNumbers);
+
+    this.totalAmountWon += this.currentNumbers.secondPlaceWinningNumbers.length * this.SECOND_PLACE_PRIZE;
+    this.totalAmountWon += this.currentNumbers.thirdPlaceWinningNumbers.length * this.THIRD_PLACE_PRIZE;
+
     this.drawings.push(this.currentNumbers);
 
     if(!this.hasWon()) {
       setTimeout(() => {
         this.drawNumbers();
-      }, 100)
+      }, 10)
     } else {
+      this.totalAmountWon += this.GRAND_PRIZE;
       this.runningSimulation = false;
     }
   }
@@ -62,6 +79,18 @@ export class RaffleComponent implements OnInit {
       return false;
     }
   }
+
+  secondPlaceWinningNumbers(currentNumbers: Drawing) {
+    return [] = currentNumbers.secondPlaceNumbers.filter(number => {
+      return currentNumbers.myNumbers.includes(number);
+    }).sort(function(a, b){return a-b});
+  }
+
+  thirdPlaceWinningNumbers(currentNumbers: Drawing) {
+    return [] = currentNumbers.thirdPlaceNumbers.filter(number => {
+      return currentNumbers.myNumbers.includes(number);
+    }).sort(function(a, b){return a-b});
+  }
 }
 
 export interface Drawing {
@@ -69,4 +98,6 @@ export interface Drawing {
   winningNumber: number;
   secondPlaceNumbers: number[];
   thirdPlaceNumbers: number[];
+  secondPlaceWinningNumbers?: number[];
+  thirdPlaceWinningNumbers?: number[];
 }

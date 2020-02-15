@@ -45,3 +45,13 @@
   word-wrap: break-word;
   word-break: break-word;
 }
+
+.spinner-grow{
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+}
