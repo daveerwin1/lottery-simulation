@@ -33,7 +33,7 @@ export class RaffleComponent implements OnInit {
 
     this.runningSimulation = true;
 
-    for (let x = 0; x < 300; x++) {
+    while (!this.winner) {
 
       this.currentNumbers = {
         myNumbers: this.raffleService.getRandomIntList(250001, this.simulationForm.value.numberTickets),
